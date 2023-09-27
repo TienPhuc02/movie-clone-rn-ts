@@ -17,7 +17,7 @@ const MovieCard = ({ item, handleClick }) => {
             width: width * 0.5,
             height: height * 0.4,
           }}
-          source={require("../../assets/moviePoster1.png")}
+          source={require("../../assets/images/moviePoster1.png")}
         />
       </TouchableWithoutFeedback>
     </View>

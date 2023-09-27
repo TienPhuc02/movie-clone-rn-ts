@@ -1,14 +1,23 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import {
   Bars3CenterLeftIcon,
   MagnifyingGlassIcon,
 } from "react-native-heroicons/outline";
 import { styles } from "../theme";
 import TrendingMovie from "../components/TrendingMovie";
+import MovieList from "../components/MovieList";
 const HomeScreen = () => {
   const [movieTrending, setMovieTrending] = useState([1, 2, 3, 4, 5]);
+  const [movieUpcoming, setMovieUpcoming] = useState([1, 2]);
+  const [topRated, setTopRated] = useState([1, 2]);
   return (
     <View className="bg-neutral-800 h-full pt-6">
       <SafeAreaView>
@@ -27,10 +36,15 @@ const HomeScreen = () => {
             ></MagnifyingGlassIcon>
           </TouchableOpacity>
         </View>
-        <View>
-          <TrendingMovie data={movieTrending} />
-        </View>
       </SafeAreaView>
+      <ScrollView>
+        <View>
+          {/* Trending movies carousel*/}
+          <TrendingMovie data={movieTrending} />
+          {/* Upcoming movies row*/}
+          <MovieList title="Upcoming" data={movieUpcoming}></MovieList>
+        </View>
+      </ScrollView>
     </View>
   );
 };
