@@ -16,8 +16,8 @@ import TrendingMovie from "../components/TrendingMovie";
 import MovieList from "../components/MovieList";
 const HomeScreen = () => {
   const [movieTrending, setMovieTrending] = useState([1, 2, 3, 4, 5]);
-  const [movieUpcoming, setMovieUpcoming] = useState([1, 2]);
-  const [topRated, setTopRated] = useState([1, 2]);
+  const [movieUpcoming, setMovieUpcoming] = useState([1, 2, 3]);
+  const [movieTopRated, setMovieTopRated] = useState([1, 2, 3]);
   return (
     <View className="bg-neutral-800 h-full pt-6">
       <SafeAreaView>
@@ -43,6 +43,9 @@ const HomeScreen = () => {
           <TrendingMovie data={movieTrending} />
           {/* Upcoming movies row*/}
           <MovieList title="Upcoming" data={movieUpcoming}></MovieList>
+
+          {/**top rated movies row */}
+          <MovieList title="Top Rated" data={movieTopRated}></MovieList>
         </View>
       </ScrollView>
     </View>

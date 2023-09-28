@@ -4,14 +4,14 @@ import Carousel from "react-native-snap-carousel";
 import MovieCard from "./MovieCard";
 import { useNavigation } from "@react-navigation/native";
 var { width, height } = Dimensions.get("window");
-const TrendingMovie = ({ data }) => {
+const TrendingMovie = ({ data }: { data: any }) => {
   const navigation = useNavigation();
-  const handleClick = () => {
-    navigation.navigate("Movie", item);
-  };
+  const handleClick = (item: any) => {
+    navigation.navigate("Movie", item );
+  }; 
   return (
-    <View className="mb-8">
-      <Text className="text-xl mx-4 text-white mt-2 mb-2">Movie Trending</Text>
+    <View style={{ marginBottom: 8 }}>
+      <Text style={{ fontSize: 20, marginLeft: 4, color: "white", marginTop: 2, marginBottom: 2 }}>Movie Trending</Text>
       <Carousel
         data={data}
         renderItem={({ item }) => (

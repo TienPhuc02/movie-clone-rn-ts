@@ -10,7 +10,7 @@ var { width, height } = Dimensions.get("window");
 const MovieCard = ({ item, handleClick }) => {
   return (
     <View>
-      <TouchableWithoutFeedback onPress={handleClick}>
+      <TouchableWithoutFeedback onPress={() => handleClick(item)}>
         <Image
           className="rounded-xl"
           style={{
