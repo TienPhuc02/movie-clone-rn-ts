@@ -15,6 +15,7 @@ import { HeartIcon } from "react-native-heroicons/solid";
 import { styles, theme } from "../theme/index";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/Cast";
+import MovieList from "../components/MovieList";
 var { width, height } = Dimensions.get("window");
 const ios = Platform.OS === "ios";
 const topMargin = ios ? "" : "mt-3";
@@ -23,6 +24,7 @@ const MovieScreen = () => {
   let movieName = "Ant-Man and The Wasp: Quantum";
   const [isFarourite, setIsFarourite] = useState(false);
   const [cast, setCast] = useState([1, 2, 3, 4, 5]);
+  const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
   const navigation = useNavigation();
   useEffect(() => {
     //call movie detail api
@@ -108,6 +110,9 @@ const MovieScreen = () => {
 
       {/**cast */}
       <Cast navigation={navigation} cast={cast} />
+
+      {/**simalar movie */}
+      <MovieList title="Similar Movie" hideSeeAll={true} data={similarMovies} />
     </ScrollView>
   );
 };
