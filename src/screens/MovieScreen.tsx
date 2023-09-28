@@ -14,6 +14,7 @@ import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import { HeartIcon } from "react-native-heroicons/solid";
 import { styles, theme } from "../theme/index";
 import { LinearGradient } from "expo-linear-gradient";
+import Cast from "../components/Cast";
 var { width, height } = Dimensions.get("window");
 const ios = Platform.OS === "ios";
 const topMargin = ios ? "" : "mt-3";
@@ -21,6 +22,7 @@ const MovieScreen = () => {
   const { params: item } = useRoute();
   let movieName = "Ant-Man and The Wasp: Quantum";
   const [isFarourite, setIsFarourite] = useState(false);
+  const [cast, setCast] = useState([1, 2, 3, 4, 5]);
   const navigation = useNavigation();
   useEffect(() => {
     //call movie detail api
@@ -41,7 +43,7 @@ const MovieScreen = () => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.background}
-            className="rounded-xl w-8 flex justify-center items-center "
+            className="rounded-xl w-8 flex justify-center items-center ml-2 "
           >
             <ChevronLeftIcon size="28" strokeWidth={2.5} color={"white"} />
           </TouchableOpacity>
@@ -76,13 +78,13 @@ const MovieScreen = () => {
         {/**status ,relese,runtime */}
       </View>
       <View className="flex justify-center items-center">
-        <Text className="text-neutral-400 font-semibold text-base text-center">
+        <Text className="text-neutral-400 font-semibold mt-3 text-base text-center">
           Movie • 2020 • 170 min
         </Text>
       </View>
 
       {/** genres*/}
-      <View className="flex-row justify-center mx-4 space-x-2">
+      <View className="flex-row justify-center mx-4 space-x-2 mt-3">
         <Text className="text-neutral-400 font-semibold text-base text-center">
           Action •
         </Text>
@@ -96,7 +98,7 @@ const MovieScreen = () => {
 
       {/**description */}
       <View>
-        <Text className="text-neutral-400 tracking-wide">
+        <Text className="text-neutral-400 tracking-wide mt-3 ml-2">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
           reprehenderit vel ad iusto numquam hic perspiciatis qui adipisci,
           accusamus fugit officia laborum minus repellat laudantium ipsum ipsam
@@ -105,7 +107,7 @@ const MovieScreen = () => {
       </View>
 
       {/**cast */}
-      
+      <Cast navigation={navigation} cast={cast} />
     </ScrollView>
   );
 };
