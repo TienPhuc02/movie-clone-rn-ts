@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { styles } from "../theme";
 import { useNavigation } from "@react-navigation/native";
+import { Image342 } from "../service/api";
 var { width, height } = Dimensions.get("window");
 const MovieList = ({ data, title, hideSeeAll }) => {
   let movieName = "Ant-Man and The Wasp: Quantum";
@@ -48,7 +49,8 @@ const MovieList = ({ data, title, hideSeeAll }) => {
                         height: height * 0.2,
                         borderRadius: 12,
                       }}
-                      source={require("../../assets/images/moviePoster2.png")}
+                      // source={require("../../assets/images/moviePoster2.png")}
+                      source={{ uri: Image342(item.poster_path) }}
                       // className="rounded-xl"
                     />
                     <Text

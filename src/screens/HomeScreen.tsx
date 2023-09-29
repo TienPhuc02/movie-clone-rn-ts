@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -16,12 +16,41 @@ import TrendingMovie from "../components/TrendingMovie";
 import MovieList from "../components/MovieList";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Loading from "../components/Loading";
+import {
+  callListMovieTopRated,
+  callListMovieTrendingHome,
+  callListMovieUpcoming,
+} from "../service/api";
 const HomeScreen = () => {
-  const [movieTrending, setMovieTrending] = useState([1, 2, 3, 4, 5]);
+  const [movieTrending, setMovieTrending] = useState([]);
   const [movieUpcoming, setMovieUpcoming] = useState([1, 2, 3]);
   const [movieTopRated, setMovieTopRated] = useState([1, 2, 3]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigation<NavigationProp<{}>>();
+  const getAllMovieTrending = async () => {
+    const res = await callListMovieTrendingHome();
+    if (res && res.data && res.data.results) {
+      setMovieTrending(res.data.results);
+      setLoading(false);
+    }
+  };
+  const getAllMovieUpcoming = async () => {
+    const res = await callListMovieUpcoming();
+    if (res && res.data && res.data.results) {
+      setMovieUpcoming(res.data.results);
+    }
+  };
+  const getAllMovieTopRated = async () => {
+    const res = await callListMovieTopRated();
+    if (res && res.data && res.data.results) {
+      setMovieTopRated(res.data.results);
+    }
+  };
+  useEffect(() => {
+    getAllMovieTrending();
+    getAllMovieUpcoming();
+    getAllMovieTopRated();
+  }, []);
   return (
     <View className="bg-neutral-800 h-full pt-6">
       <SafeAreaView>
@@ -47,7 +76,7 @@ const HomeScreen = () => {
         <ScrollView>
           <View>
             {/* Trending movies carousel*/}
-            <TrendingMovie data={movieTrending} />
+            {movieTrending.length > 0 && <TrendingMovie data={movieTrending} />}
             {/* Upcoming movies row*/}
             <MovieList title="Upcoming" data={movieUpcoming}></MovieList>
 
