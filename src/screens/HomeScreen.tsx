@@ -14,10 +14,12 @@ import {
 import { styles } from "../theme";
 import TrendingMovie from "../components/TrendingMovie";
 import MovieList from "../components/MovieList";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 const HomeScreen = () => {
   const [movieTrending, setMovieTrending] = useState([1, 2, 3, 4, 5]);
   const [movieUpcoming, setMovieUpcoming] = useState([1, 2, 3]);
   const [movieTopRated, setMovieTopRated] = useState([1, 2, 3]);
+  const navigate = useNavigation<NavigationProp<{}>>();
   return (
     <View className="bg-neutral-800 h-full pt-6">
       <SafeAreaView>
@@ -28,7 +30,7 @@ const HomeScreen = () => {
             <Text style={styles.text}>M</Text>
             ovies
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate.navigate("Search")}>
             <MagnifyingGlassIcon
               size="30"
               strokeWidth={2}
