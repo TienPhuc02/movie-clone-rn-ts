@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
-const Cast = ({ cast, navigation }) => {
+const Cast = ({ cast, navigation }: { cast: any; navigation: any }) => {
   let personName = "Keanu Reevs";
   let characterName = "John Wick";
   return (

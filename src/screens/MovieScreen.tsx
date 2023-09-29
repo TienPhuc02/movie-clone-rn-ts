@@ -22,9 +22,9 @@ const topMargin = ios ? "" : "mt-3";
 const MovieScreen = () => {
   const { params: item } = useRoute();
   let movieName = "Ant-Man and The Wasp: Quantum";
-  const [isFarourite, setIsFarourite] = useState(false);
   const [cast, setCast] = useState([1, 2, 3, 4, 5]);
   const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
+  const [isFarourite, setIsFarourite] = useState(false);
   const navigation = useNavigation();
   useEffect(() => {
     //call movie detail api
