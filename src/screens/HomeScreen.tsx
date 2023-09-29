@@ -15,10 +15,12 @@ import { styles } from "../theme";
 import TrendingMovie from "../components/TrendingMovie";
 import MovieList from "../components/MovieList";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import Loading from "../components/Loading";
 const HomeScreen = () => {
   const [movieTrending, setMovieTrending] = useState([1, 2, 3, 4, 5]);
   const [movieUpcoming, setMovieUpcoming] = useState([1, 2, 3]);
   const [movieTopRated, setMovieTopRated] = useState([1, 2, 3]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigation<NavigationProp<{}>>();
   return (
     <View className="bg-neutral-800 h-full pt-6">
@@ -39,17 +41,21 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-      <ScrollView>
-        <View>
-          {/* Trending movies carousel*/}
-          <TrendingMovie data={movieTrending} />
-          {/* Upcoming movies row*/}
-          <MovieList title="Upcoming" data={movieUpcoming}></MovieList>
+      {loading ? (
+        <Loading />
+      ) : (
+        <ScrollView>
+          <View>
+            {/* Trending movies carousel*/}
+            <TrendingMovie data={movieTrending} />
+            {/* Upcoming movies row*/}
+            <MovieList title="Upcoming" data={movieUpcoming}></MovieList>
 
-          {/**top rated movies row */}
-          <MovieList title="Top Rated" data={movieTopRated}></MovieList>
-        </View>
-      </ScrollView>
+            {/**top rated movies row */}
+            <MovieList title="Top Rated" data={movieTopRated}></MovieList>
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };
