@@ -17,6 +17,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/Cast";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
+import {
+  Image500,
+  callMovieCredit,
+  callMovieDetail,
+  callMovieSimilar,
+} from "../service/api";
 var { width, height } = Dimensions.get("window");
 const ios = Platform.OS === "ios";
 const topMargin = ios ? "" : "mt-3";
@@ -24,12 +30,42 @@ const MovieScreen = () => {
   const { params: item } = useRoute();
   let movieName = "Ant-Man and The Wasp: Quantum";
   const [cast, setCast] = useState([1, 2, 3, 4, 5]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [movieDetail, setMovieDetail] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
+  const [genres, setGenres] = useState([]);
   const [isFarourite, setIsFarourite] = useState(false);
   const navigation = useNavigation();
+  const getMovieDetails = async (id) => {
+    const res = await callMovieDetail(id);
+    if (res && res.data) {
+      setLoading(false);
+      setMovieDetail(res.data);
+      setGenres(res.data.genres);
+    }
+  };
+  const getMovieCredit = async (id) => {
+    const res = await callMovieCredit(id);
+    // console.log("🚀 ~ file: MovieScreen.tsx:44 ~ getMovieCredit ~ res:", res);
+    if (res && res.data) {
+      setLoading(false);
+      setCast(res.data.cast);
+    }
+  };
+  const getMovieSimilar = async (id) => {
+    const res = await callMovieSimilar(id);
+    // console.log("🚀 ~ file: MovieScreen.tsx:51 ~ getMovieSimilar ~ res:", res);
+    if (res && res.data && res.data.results) {
+      setLoading(false);
+      setSimilarMovies(res.data.results);
+    }
+  };
   useEffect(() => {
     //call movie detail api
+    // console.log(item.id);
+    getMovieCredit(item.id);
+    getMovieSimilar(item.id);
+    getMovieDetails(item.id);
   }, [item]);
   return (
     <ScrollView
@@ -63,7 +99,7 @@ const MovieScreen = () => {
         ) : (
           <View>
             <Image
-              source={require("../../assets/images/moviePoster2.png")}
+              source={{ uri: Image500(movieDetail.poster_path) }}
               style={{ width, height: height * 0.5 }}
             />
             <LinearGradient
@@ -81,36 +117,38 @@ const MovieScreen = () => {
       <View>
         {/**title */}
         <Text className="text-white text-center bottom-0 left-2 text-3xl absolute  font-bold tracking-wider">
-          {movieName}
+          {movieDetail.original_title}
         </Text>
         {/**status ,relese,runtime */}
       </View>
       <View className="flex justify-center items-center">
         <Text className="text-neutral-400 font-semibold mt-3 text-base text-center">
-          Movie • 2020 • 170 min
+          Movie • {movieDetail.release_date} • {movieDetail.runtime} min
         </Text>
       </View>
 
       {/** genres*/}
       <View className="flex-row justify-center mx-4 space-x-2 mt-3">
+        {genres &&
+          genres.length > 0 &&
+          genres.map((item, index) => {
+            return (
+              <View key={index}>
+                <Text className="text-neutral-400 font-semibold text-base text-center">
+                  {item.name} •
+                </Text>
+              </View>
+            );
+          })}
         <Text className="text-neutral-400 font-semibold text-base text-center">
           Action •
-        </Text>
-        <Text className="text-neutral-400 font-semibold text-base text-center">
-          Thrill •
-        </Text>
-        <Text className="text-neutral-400 font-semibold text-base text-center">
-          Comedy •
         </Text>
       </View>
 
       {/**description */}
       <View>
         <Text className="text-neutral-400 tracking-wide mt-3 ml-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-          reprehenderit vel ad iusto numquam hic perspiciatis qui adipisci,
-          accusamus fugit officia laborum minus repellat laudantium ipsum ipsam
-          saepe nisi enim.
+          {movieDetail.overview}
         </Text>
       </View>
 

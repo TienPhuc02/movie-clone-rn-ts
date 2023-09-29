@@ -37,13 +37,13 @@ const HomeScreen = () => {
   const getAllMovieUpcoming = async () => {
     const res = await callListMovieUpcoming();
     if (res && res.data && res.data.results) {
-      setMovieUpcoming(res.data.results);
+      setMovieUpcoming(res?.data?.results);
     }
   };
   const getAllMovieTopRated = async () => {
     const res = await callListMovieTopRated();
     if (res && res.data && res.data.results) {
-      setMovieTopRated(res.data.results);
+      setMovieTopRated(res?.data?.results);
     }
   };
   useEffect(() => {

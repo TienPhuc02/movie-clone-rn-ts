@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Image342 } from "../service/api";
 var { width, height } = Dimensions.get("window");
 const MovieList = ({ data, title, hideSeeAll }) => {
-  let movieName = "Ant-Man and The Wasp: Quantum";
+  // let movieName = "Ant-Man and The Wasp: Quantum";
   const navigation = useNavigation();
   return (
     <View>
@@ -36,6 +36,7 @@ const MovieList = ({ data, title, hideSeeAll }) => {
           contentContainerStyle={{ paddingHorizontal: 15 }}
         >
           {data &&
+            data.length > 0 &&
             data.map((item: any, index: number) => {
               return (
                 <TouchableWithoutFeedback
@@ -49,9 +50,7 @@ const MovieList = ({ data, title, hideSeeAll }) => {
                         height: height * 0.2,
                         borderRadius: 12,
                       }}
-                      // source={require("../../assets/images/moviePoster2.png")}
                       source={{ uri: Image342(item.poster_path) }}
-                      // className="rounded-xl"
                     />
                     <Text
                       style={{
@@ -60,9 +59,9 @@ const MovieList = ({ data, title, hideSeeAll }) => {
                       }}
                       // className="text-neutral-300 ml-1"
                     >
-                      {movieName.length > 14
-                        ? movieName.slice(0, 14) + "..."
-                        : movieName}
+                      {item?.original_title && item?.original_title?.length > 14
+                        ? item?.original_title.slice(0, 14) + "..."
+                        : item?.original_title}
                     </Text>
                   </View>
                 </TouchableWithoutFeedback>

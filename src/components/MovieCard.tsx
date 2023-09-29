@@ -9,10 +9,6 @@ import {
 import { Image500 } from "../service/api";
 var { width, height } = Dimensions.get("window");
 const MovieCard = ({ item, handleClick }) => {
-  console.log(
-    "🚀 ~ file: MovieCard.tsx:11 ~ MovieCard ~ item:",
-    item.poster_path
-  );
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
@@ -23,7 +19,7 @@ const MovieCard = ({ item, handleClick }) => {
             height: height * 0.4,
           }}
           // source={require("../../assets/images/moviePoster1.png")}
-          source={{ uri: Image500(item.poster_path) }}
+          source={{ uri: Image500(item?.poster_path) }}
         />
       </TouchableWithoutFeedback>
     </View>
