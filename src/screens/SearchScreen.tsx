@@ -21,23 +21,13 @@ const SearchScreen = () => {
   const navigate = useNavigation();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const [textSearch, setTextSearch] = useState("");
+  const [textSearch, setTextSearch] = useState("");
   const handleSearch = (value: string) => {
     setLoading(true);
     callSearchMovie().then((data) => {
       console.log(data);
     });
   };
-  // const callSearchMovies = async (textSearch: string) => {
-  //   console.log(res.data);
-  // };
-  // console.log("textSearch", textSearch);
-  // useEffect(() => {
-  //   if (textSearch !== "") {
-  //     callSearchMovies(textSearch);
-  //   }
-  // }, [textSearch]);
-  // console.log(textSearch);
   let movieName = "Ant-Man and The Wasp: Quantum";
   return (
     <SafeAreaView className="bg-neutral-800 flex-1 pt-6">
